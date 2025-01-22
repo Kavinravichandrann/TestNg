@@ -1,0 +1,45 @@
+package testNG;
+
+import org.testng.annotations.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class Frames {
+	WebDriver driver;
+	@BeforeTest
+	public  void setup() {
+		driver = new ChromeDriver();
+		driver.get("https://letcode.in/frame");
+	}
+	@Test(priority = 1)
+	public void frame1() {
+		driver.switchTo().frame(0);
+		WebElement firstname = driver.findElement(By.xpath("//input[@name='fname']"));
+		firstname.sendKeys("Kavin");
+		WebElement lastName = driver.findElement(By.xpath("//input[@name='lname']"));
+		lastName.sendKeys("Ravichandran");
+		WebElement getTxt = driver.findElement(By.xpath("//p[@class='title has-text-info']"));
+		String enteredValue = getTxt.getText();
+		System.out.println(enteredValue);
+	}
+	@Test(priority = 2)
+	public void innerFrame() {
+	//	driver.switchTo().parentFrame();
+		WebElement mail= driver.findElement(By.xpath("//iframe[@src='innerFrame']"));
+		driver.switchTo().frame(mail);
+		driver.findElement(By.name("email")).sendKeys("Kavinravichandran025@gmail.com");
+	}
+	@AfterTest
+	public void quitt() {
+		driver.quit();
+		System.out.println("Frames Handling Completed");
+	}
+
+}
