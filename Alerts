@@ -1,0 +1,66 @@
+package testNG;
+
+import org.testng.annotations.Test;
+import java.sql.Driver;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
+
+public class Alerts {
+
+	WebDriver driver;
+	@Test(priority = 1)
+	public  void setUp2() {
+	driver = new ChromeDriver();
+	driver.get("https://letcode.in/alert");
+	}
+	@Test(priority = 2)
+	public void simpleAlert() {
+	// Accepting a simple alert
+	WebElement alert = driver.findElement(By.id("accept"));
+	alert.click();
+	driver.switchTo().alert().accept();
+	}
+	@Test(priority = 3)
+	public void dismissAlert() {
+	//To dismiss the Alert & To print the alert text
+	WebElement alert2 = driver.findElement(By.id("confirm"));
+	alert2.click();
+	String alertMsg = driver.switchTo().alert().getText();
+	driver.switchTo().alert().dismiss();
+	System.out.println(alertMsg);
+	}
+	@Test(priority = 4)
+	public void promptAlert() {
+	// Prompt Alert
+	WebElement prompt = driver.findElement(By.id("prompt"));
+	prompt.click();
+	driver.switchTo().alert().sendKeys("Kavin");
+	driver.switchTo().alert().accept();
+	WebElement txt = driver.findElement(By.id("myName"));
+	String cnf = txt.getText();
+	System.out.println(cnf);
+	}
+	@Test(priority = 5)
+	public void quitting() {
+		driver.quit();
+		System.out.println("Alerts Handling Completed");
+	}
+//	WebElement sweet = driver.findElement(By.xpath("//*[@id=\"modern\"]"));
+//	sweet.click();
+//	driver.wait(1000);
+//	String sweetAlert = driver.switchTo().alert().getText();
+//	WebElement txt1 = driver.findElement(By.xpath("//p[@class = 'title']"));
+//	driver.switchTo().newWindow(null);
+//	String textMsg = txt1.getText();
+//	System.out.println(textMsg);
+//	driver.findElement(By.xpath("//button[@class = 'button is-link']")).click();
+//	//driver.quit();
+	
+
+
+}
