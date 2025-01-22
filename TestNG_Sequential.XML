@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite" parallel="false">
+  <test name="Frames Test">
+    <classes>
+      <class name="testNG.Frames"/>
+    </classes>
+  </test>
+  <test name="Alerts Test">
+    <classes>
+      <class name="testNG.Alerts"/>
+    </classes>
+  </test>
+  <test name="Windows Test">
+    <classes>
+      <class name="testNG.Windows"/>
+    </classes>
+  </test>
+  <test name="RadioButtons Test">
+    <classes>
+      <class name="testNG.RadioButtons"/>
+    </classes>
+  </test>
+  <test name="TextAndButtons Test">
+    <classes>
+      <class name="testNG.TextAndButtons"/>
+    </classes>
+  </test>
+  <test name="DropDown Test">
+    <classes>
+      <class name="testNG.DropDown"/>
+    </classes>
+  </test>
+</suite>
