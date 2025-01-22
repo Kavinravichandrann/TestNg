@@ -1,0 +1,111 @@
+package testNG;
+
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class TextAndButtons {
+
+	WebDriver driver;
+
+	@BeforeSuite
+	public void setup() {
+		driver = new ChromeDriver();
+		driver.get("https://letcode.in/test");
+		System.out.println("Browser Launched");
+	}
+
+	@Test(priority = 1)
+	public void sendValues() {
+		// Entering Values in the text box
+
+		WebElement workspace = driver.findElement(By.xpath("//a[contains(text(), 'Edit')]"));
+		workspace.click();
+		WebElement name = driver.findElement(By.id("fullName"));
+		name.sendKeys("Kavin Ravichandran");
+		// Printing the entered value
+		String value = name.getAttribute("value");
+		System.out.println("Entered value is : " + value);
+	}
+
+	@Test(priority = 2)
+	public void appendValue() {
+		// To Append values in the text box
+		WebElement join = driver.findElement(By.id("join"));
+		join.sendKeys(" at learning ");
+
+		String value2 = join.getAttribute("value");
+		System.out.println("Append value : " + value2);
+	}
+
+	@Test(priority = 3)
+	public void printExist() {
+		// To Print the existing text in console
+		WebElement getText = driver.findElement(By.id("getMe"));
+		String getText2 = getText.getAttribute("value");
+		System.out.println("Existing text : " + getText2);
+	}
+	@Test(priority = 4)
+	public void clearExist() {
+		// To clear the existing text
+		WebElement clear = driver.findElement(By.id("clearMe"));
+		clear.clear();
+		String clearMe = clear.getAttribute("value");
+		System.out.println("Text Exist 'Clear' :" + clearMe);
+	}
+
+	@Test(priority = 5)
+	public void isDisabled() {
+		WebElement disabled = driver.findElement(By.id("noEdit"));
+		// To check whether the box is disabled
+		disabled.isEnabled();
+		if (disabled.isEnabled())
+			System.out.println("Enabled");
+		else {
+			System.out.println("This text box is disabled");
+		}
+	}
+
+	@Test(priority = 6)
+	public void isEditable() {
+		// To check the box is editable or not
+		WebElement check = driver.findElement(By.id("dontwrite"));
+		check.sendKeys("Test");
+		String elem = check.getAttribute("value");
+		if (elem.equals("Test")) {
+			System.out.println("Editable and the entered value is :" + elem);
+
+		} else {
+			System.out.println("Sorry this text box is not editable");
+		}
+	}
+	@Test(priority = 7)
+	public void backToHome() {
+		// Navigating to the home screen
+		driver.navigate().back();
+		String title = ((WebDriver) driver).getCurrentUrl();
+		System.out.println(title);
+		if (title.equals("https://letcode.in/test")) {
+			System.out.println("Returned to home page");
+		} else {
+			System.out.println("Oops not returned");
+		}
+	}
+
+	@AfterSuite
+	public void tearDown() {
+		// Close the browser
+			driver.quit();
+			System.out.println("TextAndButtons handling completed");
+
+		
+	}
+}
