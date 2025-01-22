@@ -1,0 +1,142 @@
+package testNG;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
+
+import static org.testng.Assert.fail;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class RadioButtons {
+	private static final boolean Fail = false;
+	WebDriver driver;
+
+	@BeforeTest
+	public void setUp() {
+		driver = new ChromeDriver();
+		driver.get("https://letcode.in/radio");
+	}
+
+	@Test(priority = 1)
+	public void radio1() {
+		WebElement rdo1 = driver.findElement(By.xpath("//label[@class= 'label']"));
+		WebElement yes = driver.findElement(By.id("yes"));
+		yes.click();
+		boolean verification = yes.isSelected();
+		System.out.println("IsSelected Yes : " + verification);
+	}
+
+	@Test(priority = 2)
+	public void one() {
+		// To verify only one radio button is selected
+		WebElement one = driver.findElement(By.id("one"));
+		one.click();
+		WebElement two = driver.findElement(By.id("two"));
+		two.click();
+
+		boolean verify1 = one.isSelected();
+		boolean verify2 = two.isSelected();
+		if ((verify1 && !verify2) || (!verify1 && verify2)) {
+			System.out.println("Passed ! Only one is selected");
+
+		} else {
+			System.out.println("Failed ! both are selected");
+		}
+	}
+
+	@Test(priority = 3)
+	public void bugIdentify() {
+		// To find the bug that the both check boxes are checked
+		WebElement bug1 = driver.findElement(By.id("nobug"));
+		bug1.click();
+		WebElement bug2 = driver.findElement(By.id("bug"));
+		bug2.click();
+
+		Boolean bugg1 = bug1.isSelected();
+		Boolean bugg2 = bug2.isSelected();
+
+		if ((bugg1 && bugg2) || (bugg2 && bugg1)) {
+			System.out.println("Yes its a bug, both the radio buttons were selected");
+		} else {
+			System.out.println("No issues! Only one radio button is selected");
+		}
+	}
+
+	@Test(priority = 4)
+	public void whichIsSelected() {
+		// To find which one is selected
+		WebElement foo = driver.findElement(By.id("foo"));
+		Boolean foo1 = foo.isSelected();
+
+		WebElement notFoo = driver.findElement(By.id("notfoo"));
+		Boolean notFoo1 = notFoo.isSelected();
+
+		if (foo1 == true) {
+			System.out.println("Foo is selected");
+		} else if (notFoo1 == true) {
+			System.out.println("Bar is Selected");
+		} else {
+			System.out.println("Nothing is Selected");
+		}
+	}
+	@Test(priority = 5)
+	public void whichIsDisabled() {
+		// To verify which one is disabled
+	
+		WebElement going = driver.findElement(By.id("going"));
+		WebElement notGoing = driver.findElement(By.id("notG"));
+		WebElement maybe = driver.findElement(By.id("maybe"));
+		Boolean go = going.isEnabled();
+		Boolean notGo = notGoing.isEnabled();
+		Boolean may = maybe.isEnabled();
+	
+	if (go==false) {
+		System.out.println("Going is disabled");
+		
+	} else if (notGo==false) {
+		System.out.println("NotGoing is disabled");
+		
+	} else if (may==false) {
+		System.out.println("MayBe button is disabled");
+		
+	} else {
+		System.out.println("Nothing is disabled");
+	}
+	}
+	@Test(priority = 6)
+	public void rememberCheckbox() {
+
+		WebElement remCheck = driver.findElement(By
+				.xpath("/html/body/app-root/app-radio-check/section[1]/div/div/div[1]/div/div/div[6]/label[2]/input"));
+		Boolean rem = remCheck.isSelected();
+
+		if (rem == true) {
+			System.out.println("Remember check box is selected");
+		} else {
+			System.out.println("Remember checkbox is not selected");
+		}
+	}
+		@Test(priority=7, enabled = Fail)
+		public void fakeAgree() throws InterruptedException {
+	/*	WebElement agree = driver.findElement(By
+				.xpath("/html/body/app-root/app-radio-check/section[1]/div/div/div[1]/div/div/div[7]/label[2]/input"));
+		agree.click(); */
+		WebElement checkbox = driver.findElement(By.xpath("/html/body/app-root/app-radio-check/section[1]/div/div/div[1]/div/div/div[7]/label[2]/input"));
+		Thread.sleep(1000);
+		checkbox.click();
+		} 
+	@AfterTest
+	public void quitWindow() {
+		driver.quit();;
+		System.out.println("RadioButton Handling Completed");
+	}
+}
